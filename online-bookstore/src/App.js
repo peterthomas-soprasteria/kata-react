@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from "react";
+import BookList from "./components/BookList";
+import Cart from "./components/Cart";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const [cart, setCart] = useState([]);
+
+    const addToCart = (book) => {
+        setCart((prevCart) => {
+          const existingItem = prevCart.find((item) => item.id === book.id);
+          if(existingItem){
+            return prevCart.map((item) =>
+            item.book.id === book.id ? {...item, quantity: item.quantity + 1} : item);
+          }else{
+            return [...prevCart, {book, quantity: 1}];
+          }
+        });
+    }
+
+    return (
+        <div>
+            <h1>Online Bookstore</h1>
+            <BookList addToCart={addToCart} />
+            <Cart cart={cart} setCart={setCart}/>
+        </div>
+    );
 }
 
 export default App;
