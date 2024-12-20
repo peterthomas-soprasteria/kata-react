@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import axios from "axios";
+import '../styles/Cart.css';
 
 const Cart = ({cart, setCart, fetchCart,updateCartItem, removeFromCart}) => {
 
@@ -44,7 +45,7 @@ const Cart = ({cart, setCart, fetchCart,updateCartItem, removeFromCart}) => {
     };
 
     return(
-        <div>
+        <div className="cart-container">
             <h2>Shopping Cart</h2>
             <ul>
                 {cart.length === 0 && <p>Your cart is empty</p>}
@@ -57,7 +58,7 @@ const Cart = ({cart, setCart, fetchCart,updateCartItem, removeFromCart}) => {
                     </li>
                 ))}
             </ul>
-            <div>
+            <div className="cart-total">
                 <h3>Total: ${totalPrice.toFixed(2)}</h3>
                 <button onClick={handleCheckout} disabled={cart.length===0}>Checkout</button>
             </div>

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
+import '../styles/BookList.css'
 
 const BookList = ({addToCart}) => {
     const [books, setBooks] = useState([]);
