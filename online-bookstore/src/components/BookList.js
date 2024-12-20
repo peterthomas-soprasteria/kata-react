@@ -5,9 +5,23 @@ const BookList = ({addToCart}) => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/books")
-        .then((response) => setBooks(response.data))
-        .catch((error) => console.log("An error occurred while fetching books", error));
+        const token = localStorage.getItem("jwtToken");
+
+        axios
+            .get("http://localhost:8080/books" , {
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => setBooks(response.data))
+            .catch((error) => {
+                if (error.response.status === 401) {
+                    alert("Session expired, please login again");
+                    window.location.href = "/login";
+                }else{
+                    console.error("An error occurred while fetching books", error);
+                }
+            });
     }, []);
 
     return (
@@ -25,6 +39,6 @@ const BookList = ({addToCart}) => {
             </div>
         </div>
     );
-}
+};
 
 export default BookList;
