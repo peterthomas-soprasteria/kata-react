@@ -50,7 +50,7 @@ const Cart = ({cart, setCart, fetchCart,updateCartItem, removeFromCart}) => {
                 {cart.length === 0 && <p>Your cart is empty</p>}
                 {cart.map((item)=>(
                     <li key={item.book.id}>
-                        <div>{item.book.title} - {item.quantity} x ${item.book.price}</div>
+                        <div>{item.book.title} - {item.quantity} x {item.book.price}€</div>
                         <button onClick={() => removeFromCart(item.book.id)}>Remove from Cart</button>
                         <button onClick={() => handleQuantityChange(item.book.id, item.quantity - 1)}>-</button>
                         <button onClick={() => handleQuantityChange(item.book.id, item.quantity + 1)}>+</button>

@@ -7,6 +7,7 @@ const Navbar = ({onLogout}) => {
             <h1>Online Bookstore</h1>
             <Link to={"/books"}>Books</Link>
             <Link to={"/cart"}>Cart</Link>
+            <Link to={"/orders"}>Orders</Link>
             <button onClick={onLogout}>Logout</button>
         </nav>
     );

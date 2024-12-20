@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import BookList from "./components/BookList";
 import Cart from "./components/Cart";
+import Orders from "./components/Orders";
 import axios from "axios";
 
 const App = () => {
@@ -36,18 +37,17 @@ const App = () => {
 
     const addToCart = async (book) => {
         const token = localStorage.getItem("jwtToken");
-        console.log("Token being sent", token);
         try{
             const response = await axios.post("http://localhost:8080/cart/add", {},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                params: {
-                    bookId: book.id,
-                    quantity: 1,
-                }
-            });
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    params: {
+                        bookId: book.id,
+                        quantity: 1,
+                    }
+                });
             setCart(response.data.cartItems);
         }catch(error){
             console.error("An error occurred while adding to cart", error);
@@ -113,6 +113,11 @@ const App = () => {
                 <Route path="/cart" element={
                     <ProtectedRoute>
                         <Cart cart={cart} setCart={setCart} fetchCart={fetchCart} updateCartItem={updateCartItem} removeFromCart={removeFromCart}/>
+                    </ProtectedRoute>
+                } />
+                <Route path="/orders" element={
+                    <ProtectedRoute>
+                        <Orders />
                     </ProtectedRoute>
                 } />
             </Routes>
